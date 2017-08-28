@@ -12,6 +12,7 @@ const ROOT_VIEW_TAG_INCREMENT = 10;
 
 @reactModule('UIManager')
 export default class UIManager {
+  bridge = null;
 
   viewRegistry = [];
   viewCounter = 0;
@@ -20,9 +21,11 @@ export default class UIManager {
 
   viewManagers = {};
 
-  rootViewManager = new RootViewManager();
+  rootViewManager;
 
   constructor(bridge) {
+    this.bridge = bridge;
+    this.rootViewManager = new RootViewManager(bridge);
     bridge.uiManager = this;
 
     const customBubblingEventTypes = {};
@@ -126,6 +129,17 @@ export default class UIManager {
       removeManager.beforeRemoveView(removeView);
       delete this.viewRegistry[removeTag];
     }
+  }
+
+  @reactMethod
+  measure(tag, cb){
+    const [ view, manager ] = this.viewRegistry[tag];
+    this.bridge.invoke(cb, {
+      left: view.offsetLeft,
+      top: view.offsetTop,
+      width: view.offsetWidth,
+      height: view.offsetHeight,
+    });
   }
 
   @reactMethod

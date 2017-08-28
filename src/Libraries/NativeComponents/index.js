@@ -5,3 +5,4 @@
 import './RCTViewManager';
 import './RCTTextManager';
 import './RCTButtonManager';
+import './RCTImageManager';

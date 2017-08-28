@@ -7,7 +7,7 @@ const BRIDGE_CODE = `
 var Status = undefined;
 
 function getOriginPort() {
-  const m = /:(\d+)$/.exec(origin);
+  const m = /:(\\d+)$/.exec(origin);
   if (m) {
     return +m[1];
   }
@@ -248,5 +248,9 @@ export default class Bridge {
 
   sendEvent(tag, type, nativeEvent) {
     this.exec('RCTEventEmitter', 'receiveEvent', [tag, type, nativeEvent]);
+  }
+
+  sendTouchEvent(type, touches, changedIndices) {
+    this.exec('RCTEventEmitter', 'receiveTouches', [type, touches, changedIndices]);
   }
 }

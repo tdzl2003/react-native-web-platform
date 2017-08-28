@@ -12,6 +12,11 @@ export default class RootViewManager extends BaseViewManager {
     div.style.height = '100%';
     div.style.flexDirection = 'column';
     div.style.padding = 0;
+
+    div.addEventListener('touchstart', this.onTouchStart);
+    div.addEventListener('touchmove', this.onTouchMove);
+    div.addEventListener('touchcancel', this.onTouchCancel);
+    div.addEventListener('touchend', this.onTouchEnd);
     return div;
   }
 
@@ -19,4 +24,61 @@ export default class RootViewManager extends BaseViewManager {
     super.setViewTag(view, tag);
     view.setAttribute('data-react-root', tag);
   }
+
+  sendTouchEvent(type, ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+
+    const touches = [];
+    const touchIdMap = [];
+    const changedIndecies = [];
+
+    const reactId = +ev.target.getAttribute('data-react-id');
+
+    for (const touch of ev.touches) {
+      touchIdMap[touch.identifier] = touches.length;
+      touches.push({
+        pageX: touch.pageX,
+        pageY: touch.pageY,
+        locationX: touch.locationX,
+        locationY: touch.locationY,
+        target: reactId,
+        identifier: touch.identifier,
+      });
+    }
+    if (type === 'topTouchCancel' || type === 'topTouchEnd') {
+      for (const touch of ev.changedTouches) {
+        touchIdMap[touch.identifier] = touches.length;
+        touches.push({
+          pageX: touch.pageX,
+          pageY: touch.pageY,
+          locationX: touch.locationX,
+          locationY: touch.locationY,
+          target: reactId,
+          identifier: touch.identifier,
+        });
+      }
+    }
+    for (const touch of ev.changedTouches) {
+      changedIndecies.push(touchIdMap[touch.identifier]);
+    }
+
+    this.bridge.sendTouchEvent(type, touches, changedIndecies);
+  }
+
+  onTouchStart = (ev) => {
+    this.sendTouchEvent('topTouchStart', ev);
+  };
+
+  onTouchMove = (ev) => {
+    this.sendTouchEvent('topTouchMove', ev);
+  };
+
+  onTouchCancel = (ev) => {
+    this.sendTouchEvent('topTouchCancel', ev);
+  };
+
+  onTouchEnd = (ev) => {
+    this.sendTouchEvent('topTouchEnd', ev);
+  };
 }
