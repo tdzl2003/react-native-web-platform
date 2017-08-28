@@ -6,6 +6,16 @@ import { moduleClasses } from './NativeModules/decorators';
 const BRIDGE_CODE = `
 var Status = undefined;
 
+function getOriginPort() {
+  const m = /:\d+$/.exec(origin);
+  if (m) {
+    return +m[1];
+  }
+  return 80;
+}
+
+var __REACT_DEVTOOLS_PORT__ = getOriginPort();
+
 var process = {
   env: {
     NODE_ENV: '${__DEV__ ? 'development' : 'production'}',
@@ -17,6 +27,7 @@ var originGlobals = {
   clearTimeout: clearTimeout,
   setInterval: setInterval,
   clearInterval: clearInterval,
+  WebSocket: WebSocket,
 };
 
 onmessage = function(e) {

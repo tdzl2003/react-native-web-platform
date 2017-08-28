@@ -25,7 +25,8 @@ const processColor = require('processColor');
 const createReactNativeComponentClass = require('createReactNativeComponentClass');
 const mergeFast = require('mergeFast');
 
-const {PropTypes} = React;
+const PropTypes = require('prop-types');
+const ReactCreateClass = require('create-react-class');
 
 const stylePropType = StyleSheetPropType(TextStylePropTypes);
 
@@ -96,7 +97,7 @@ const viewConfig = {
  * ```
  */
 
-const Text = React.createClass({
+const Text = ReactCreateClass({
   propTypes: {
     /**
      * This can be one of the following values:

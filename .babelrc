@@ -3,5 +3,6 @@
   "plugins": [
     "transform-exponentiation-operator",
     "transform-decorators-legacy"
-  ]
+  ],
+  "comments": true
 }

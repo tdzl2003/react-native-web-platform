@@ -2,20 +2,12 @@
  * Created by tdzl2003 on 04/06/2017.
  * @providesModule JSTimers
  */
+'use strict';
 
 export const setTimeout = originGlobals.setTimeout;
 export const clearTimeout = originGlobals.clearTimeout;
 export const setInterval = originGlobals.setInterval;
 export const clearInterval = originGlobals.clearInterval;
-
-export function setImmediate(fn) {
-  return setTimeout(fn, 0);
-}
-
-export const clearImmediate = clearTimeout;
-
-global.setImmediate = setImmediate;
-global.clearImmediate = clearImmediate;
 
 const framesCallbacks = [];
 
@@ -35,6 +27,37 @@ export function requestAnimationFrame(fn) {
 
 export function cancelAnimationFrame(timer) {
   timer.canceled = true;
+}
+
+let immediates = [];
+
+export function setImmediate(func, ...args) {
+    const ret = immediates.length;
+    immediates.push({
+        f:()=>func(...args),
+        canceled: false,
+    });
+}
+
+export function clearImmediate(ev) {
+  ev.canceled = true;
+}
+
+global.setImmediate = setImmediate;
+global.clearImmediate = clearImmediate;
+
+export function callImmediates() {
+    for (;;) {
+      const pass = immediates.splice(0);
+      if (pass.length === 0) {
+        break;
+      }
+      for (const ev of pass) {
+        if (!ev.canceled) {
+          ev.f();
+        }
+      }
+    }
 }
 
 global.requestAnimationFrame = requestAnimationFrame;
