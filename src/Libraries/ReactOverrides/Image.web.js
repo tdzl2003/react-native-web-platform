@@ -152,13 +152,14 @@ const Image = React.createClass({
     }
 
     if (source && source.uri) {
-      const style = flattenStyle([styles.base, this.props.style]);
+      const {width, height, uri} = source;
+      const style = flattenStyle([{width, height}, styles.base, this.props.style]);
       const {onLoadStart, onLoad, onLoadEnd} = this.props;
 
       const nativeProps = merge(this.props, {
         style,
         shouldNotifyLoadEvents: !!(onLoadStart || onLoad || onLoadEnd),
-        source: source,
+        src: uri,
         loadingIndicatorSrc: loadingIndicatorSource ? loadingIndicatorSource.uri : null,
       });
 

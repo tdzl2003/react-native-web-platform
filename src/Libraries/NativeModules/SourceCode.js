@@ -9,7 +9,7 @@ export default class SourceCode {
   constructor(bridge) {
     this.constants = {
       scriptURL: bridge.bundleUrl,
-      assetRoot: global.__ASSET_ROOT__,
+      assetRoot: global.__ASSET_ROOT__ || '.',
     };
   }
 }

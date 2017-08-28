@@ -19,6 +19,8 @@ export default class RCTImageManager extends BaseViewManager {
     img.style.flexDirection = 'column';
     img.style.padding = 0;
     img.style.border = 0;
+    img.style.width = 0;
+    img.style.height = 0;
     return img;
   }
 
