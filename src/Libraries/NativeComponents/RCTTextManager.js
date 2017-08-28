@@ -2,7 +2,7 @@
  * Created by tdzl2003 on 03/06/2017.
  */
 
-import { propSetter, style, domStyle, domStyleWithUnit, nativeComponent } from './decorators';
+import { propSetter, style, domStyle, domStyleWithUnit, domColorStyle, nativeComponent } from './decorators';
 import BaseViewManager from './BaseViewManager';
 
 @nativeComponent('RCTText')
@@ -21,6 +21,24 @@ export default class RCTTextManager extends BaseViewManager {
   @domStyle
   position;
 
+  @domStyle
+  textAlign;
+
+  @domStyleWithUnit('px')
+  margin;
+
+  @domStyleWithUnit('px')
+  marginLeft;
+
+  @domStyleWithUnit('px')
+  marginRight;
+
+  @domStyleWithUnit('px')
+  marginTop;
+
+  @domStyleWithUnit('px')
+  marginBottom;
+
   @domStyleWithUnit('px')
   left;
 
@@ -33,15 +51,14 @@ export default class RCTTextManager extends BaseViewManager {
   @domStyleWithUnit('px')
   bottom;
 
-  @style
-  backgroundColor(view, value) {
-    const a = ((value >> 24) & 0xff) / 255;
-    const r = (value >> 16) & 0xff;
-    const g = (value >> 8) & 0xff;
-    const b = (value & 0xff);
-    view.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`;
-  };
+  @domStyleWithUnit('px')
+  fontSize;
 
+  @domColorStyle
+  color;
+
+  @domColorStyle
+  backgroundColor;
 }
 
 @nativeComponent('RCTRawText')
@@ -57,6 +74,5 @@ export class RCTRawTextManager extends BaseViewManager {
   }
 
   setViewTag(view, tag) {
-    // view.setAttribute('data-react-id', tag);
   }
 }

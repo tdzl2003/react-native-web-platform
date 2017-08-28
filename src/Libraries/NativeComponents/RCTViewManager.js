@@ -78,6 +78,18 @@ export default class RCTViewManager extends BaseViewManager {
   margin;
 
   @domStyleWithUnit('px')
+  marginLeft;
+
+  @domStyleWithUnit('px')
+  marginRight;
+
+  @domStyleWithUnit('px')
+  marginTop;
+
+  @domStyleWithUnit('px')
+  marginBottom;
+
+  @domStyleWithUnit('px')
   padding;
 
   @domColorStyle

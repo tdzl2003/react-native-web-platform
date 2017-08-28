@@ -352,25 +352,15 @@ const Text = ReactCreateClass({
   },
 });
 
-type RectOffset = {
-  top: number,
-  left: number,
-  right: number,
-  bottom: number,
-};
-
 const PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
 const RCTText = createReactNativeComponentClass(viewConfig);
-let RCTVirtualText = RCTText;
 
-if (Platform.OS === 'android') {
-  RCTVirtualText = createReactNativeComponentClass({
-    validAttributes: mergeFast(ReactNativeViewAttributes.UIView, {
-      isHighlighted: true,
-    }),
-    uiViewClassName: 'RCTVirtualText',
-  });
-}
+const RCTVirtualText = createReactNativeComponentClass({
+  validAttributes: mergeFast(ReactNativeViewAttributes.UIView, {
+    isHighlighted: true,
+  }),
+  uiViewClassName: 'RCTVirtualText',
+});
 
 module.exports = Text;

@@ -7,7 +7,7 @@ const BRIDGE_CODE = `
 var Status = undefined;
 
 function getOriginPort() {
-  const m = /:\d+$/.exec(origin);
+  const m = /:(\d+)$/.exec(origin);
   if (m) {
     return +m[1];
   }
