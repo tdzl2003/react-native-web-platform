@@ -24,7 +24,7 @@ export function command(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
-        [name]: true,
+        [name]: name,
       },
     })
   }
@@ -69,7 +69,7 @@ export function domDirectEvent(eventName, eventWrapper = ev => ({})) {
     directEvent(target, name, args);
 
     if (target.hasOwnProperty('__domDirectEvent')){
-      target.__domDirectEvent[name] = setter;
+      target.__domDirectEvent[name] = [eventName, eventWrapper];
     } else {
       Object.defineProperty(target, '__domDirectEvent', {
         configurable: true,

@@ -25,6 +25,7 @@
   "dependencies": {
     "create-react-class": "^15.6.0",
     "es6-promise": "^4.1.0",
+    "iscroll": "^5.2.0",
     "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.5.10"
   }

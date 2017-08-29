@@ -11,6 +11,7 @@
  */
 'use strict';
 
+const UIManager = require('UIManager');
 const Animated = require('Animated');
 const ColorPropType = require('ColorPropType');
 const EdgeInsetsPropType = require('EdgeInsetsPropType');
@@ -413,6 +414,11 @@ const ScrollView = createReactClass({
     ,
 
     componentDidMount: function () {
+      UIManager.dispatchViewManagerCommand(
+        this.scrollResponderGetScrollableNode(),
+        UIManager.RCTScrollView.Commands.postCreate,
+        []
+      );
       this._updateAnimatedNodeAttachment();
     }
     ,
@@ -802,13 +808,13 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexDirection: 'column',
-    overflow: 'scroll',
+    overflow: 'hidden',
   },
   baseHorizontal: {
     flexGrow: 1,
     flexShrink: 1,
     flexDirection: 'row',
-    overflow: 'scroll',
+    overflow: 'hidden',
   },
   contentContainerHorizontal: {
     flexDirection: 'row',

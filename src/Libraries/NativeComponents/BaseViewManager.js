@@ -44,12 +44,12 @@ export default class BaseViewManager {
     }
   }
 
-  setViewProps(view, props) {
+  setViewProps(view, props, payload) {
     for (const key of Object.keys(props)) {
       if (this.__styles && this.__styles[key]) {
-        this.__styles[key](view, props[key]);
+        this.__styles[key](view, props[key], payload);
       } else if (this.__props && this.__props[key]) {
-        this.__props[key](view, props[key]);
+        this.__props[key](view, props[key], payload);
       }
     }
   }
@@ -104,5 +104,9 @@ export default class BaseViewManager {
   }
 
   beforeRemoveView(view) {
+  }
+
+  createPayload(view) {
+
   }
 }

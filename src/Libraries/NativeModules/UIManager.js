@@ -84,13 +84,15 @@ export default class UIManager {
       throw new Error(`Native component ${className} was not implemented yet.`);
     }
     const view = manager.createView();
+    const payload = manager.createPayload(view);
     manager.setViewTag(view, tag);
     if (props) {
-      manager.setViewProps(view, props);
+      manager.setViewProps(view, props, payload);
     }
     this.viewRegistry[tag] = [
       view,
       manager,
+      payload,
     ];
   }
 
@@ -109,8 +111,8 @@ export default class UIManager {
     if (DEBUG) {
       console.log('updateView', tag, props);
     }
-    const [ view, manager ] = this.viewRegistry[tag];
-    manager.setViewProps(view, props);
+    const [ view, manager, payload ] = this.viewRegistry[tag];
+    manager.setViewProps(view, props, payload);
   }
 
   @reactMethod
@@ -145,8 +147,8 @@ export default class UIManager {
 
   @reactMethod
   dispatchViewManagerCommand(tag, name, args){
-    const [ view, manager ] = this.viewRegistry[tag];
-    manager[name](view, ...args);
+    const [ view, manager, payload ] = this.viewRegistry[tag];
+    manager[name](view, payload, ...args);
   }
 
   @reactMethod
