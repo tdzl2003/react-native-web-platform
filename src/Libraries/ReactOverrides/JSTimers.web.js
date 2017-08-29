@@ -14,33 +14,44 @@ const framesCallbacks = [];
 setInterval(() => {
   for (const timer of framesCallbacks.splice(0)) {
     if (!timer.canceled) {
-      timer.fn();
+      timer.f();
     }
   }
 }, 16);
 
 export function requestAnimationFrame(fn) {
-  const ret = {fn};
+  const ret = new Timer(fn);
   framesCallbacks.push(ret);
   return ret;
 }
 
 export function cancelAnimationFrame(timer) {
-  timer.canceled = true;
+  if (timer instanceof Timer) {
+    timer.canceled = true;
+  }
 }
 
 let immediates = [];
 
+class Timer {
+  f;
+  canceled = false;
+
+  constructor(f) {
+    this.f = f;
+  }
+}
+
 export function setImmediate(func, ...args) {
-    const ret = immediates.length;
-    immediates.push({
-        f:()=>func(...args),
-        canceled: false,
-    });
+    const ret = new Timer(()=>func(...args));
+    immediates.push(ret);
+    return ret;
 }
 
 export function clearImmediate(ev) {
-  ev.canceled = true;
+  if (ev instanceof Timer) {
+    ev.canceled = true;
+  }
 }
 
 global.setImmediate = setImmediate;

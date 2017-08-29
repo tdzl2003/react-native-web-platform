@@ -16,8 +16,18 @@ export function nativeComponent(name) {
   }
 }
 
-export function command(name) {
-
+export function command(target, name, args) {
+  if (target.hasOwnProperty('__commands')){
+    target.__commands[name] = name;
+  } else {
+    Object.defineProperty(target, '__commands', {
+      configurable: true,
+      enumerable: false,
+      value: {
+        [name]: true,
+      },
+    })
+  }
 }
 
 export function nativeProp(target, name, args) {

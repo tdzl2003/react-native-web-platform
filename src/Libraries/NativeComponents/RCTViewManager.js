@@ -17,6 +17,7 @@ export default class RCTViewManager extends BaseViewManager {
     div.style.display = 'flex';
     div.style.flexDirection = 'column';
     div.style.padding = 0;
+    div.style.flexShrink = 0;
     return div;
   }
 
@@ -49,6 +50,9 @@ export default class RCTViewManager extends BaseViewManager {
 
   @domStyle
   opacity;
+
+  @domStyle
+  overflow;
 
   @domStyleWithUnit('px')
   width;

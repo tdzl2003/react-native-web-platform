@@ -609,21 +609,12 @@ const ScrollView = createReactClass({
     render: function () {
       let ScrollViewClass;
       let ScrollContentContainerViewClass;
-      if (Platform.OS === 'ios') {
-        ScrollViewClass = RCTScrollView;
-        ScrollContentContainerViewClass = RCTScrollContentView;
-        warning(
-          !this.props.snapToInterval || !this.props.pagingEnabled,
-          'snapToInterval is currently ignored when pagingEnabled is true.'
-        );
-      } else if (Platform.OS === 'android') {
-        if (this.props.horizontal) {
-          ScrollViewClass = AndroidHorizontalScrollView;
-        } else {
-          ScrollViewClass = AndroidScrollView;
-        }
-        ScrollContentContainerViewClass = View;
-      }
+      ScrollViewClass = RCTScrollView;
+      ScrollContentContainerViewClass = RCTScrollContentView;
+      warning(
+        !this.props.snapToInterval || !this.props.pagingEnabled,
+        'snapToInterval is currently ignored when pagingEnabled is true.'
+      );
 
       invariant(
         ScrollViewClass !== undefined,

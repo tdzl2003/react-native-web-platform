@@ -39,7 +39,8 @@ export default class UIManager {
       const instance = this.viewManagers[name] = new clazz(bridge);
       nativeComponentsInfo[name] = {
         NativeProps: instance.__nativeProps || {},
-      }
+        Commands: instance.__commands || {},
+      };
       if (instance.__customBubblingEventTypes) {
         Object.assign(customBubblingEventTypes, instance.__customBubblingEventTypes);
       }
