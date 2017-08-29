@@ -143,6 +143,12 @@ export default class UIManager {
   }
 
   @reactMethod
+  dispatchViewManagerCommand(tag, name, args){
+    const [ view, manager ] = this.viewRegistry[tag];
+    manager[name](view, ...args);
+  }
+
+  @reactMethod
   setJSResponder() {
 
   }

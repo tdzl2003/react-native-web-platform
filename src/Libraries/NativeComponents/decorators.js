@@ -16,6 +16,10 @@ export function nativeComponent(name) {
   }
 }
 
+export function command(name) {
+
+}
+
 export function nativeProp(target, name, args) {
   if (target.hasOwnProperty('__nativeProps')){
     target.__nativeProps[name] = true;
