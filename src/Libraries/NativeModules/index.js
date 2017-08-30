@@ -7,3 +7,4 @@ import './DeviceInfo';
 import './SourceCode';
 import './TouchEventDispatcher';
 import './AsyncLocalStorage';
+import './LinkingManager';
