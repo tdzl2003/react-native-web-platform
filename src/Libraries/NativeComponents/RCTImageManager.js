@@ -6,7 +6,7 @@ import {
   domStyle,
   domStyleWithUnit,
   domColorStyle,
-  domProp,
+  propSetter,
   nativeComponent,
 } from './decorators';
 import BaseViewManager from './BaseViewManager';
@@ -14,7 +14,7 @@ import BaseViewManager from './BaseViewManager';
 @nativeComponent('RCTImageView')
 export default class RCTImageManager extends BaseViewManager {
   createView() {
-    const img = document.createElement('img');
+    const img = document.createElement('div');
     img.style.display = 'flex';
     img.style.flexDirection = 'column';
     img.style.padding = 0;
@@ -22,11 +22,39 @@ export default class RCTImageManager extends BaseViewManager {
     img.style.width = 0;
     img.style.height = 0;
     img.style.position = 'relative';
+    img.style.backgroundSize = '100% 100%'
     return img;
   }
 
-  @domProp
-  src;
+  @propSetter
+  source(img, value) {
+    img.style.backgroundImage = `url(${value})`;
+  };
+
+  @propSetter
+  resizeMode(img, value) {
+    switch (value) {
+      case 'contain': case 'cover':
+        img.style.backgroundSize = value;
+        img.style.backgroundPosition = 'center';
+        img.style.backgroundRepeat = 'no-repeat';
+        break;
+      case 'stretch':
+        img.style.backgroundSize = '100% 100%';
+        img.style.backgroundRepeat = 'no-repeat';
+        break;
+      case 'center':
+        img.style.backgroundSize = 'auto';
+        img.style.backgroundPosition = 'center';
+        img.style.backgroundRepeat = 'no-repeat';
+        break;
+      case 'repeat':
+        img.style.backgroundSize = 'auto';
+        img.style.backgroundPosition = 'top left';
+        img.style.backgroundRepeat = 'repeat';
+        break;
+    }
+  }
 
   @domStyle
   flex;

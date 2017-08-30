@@ -20,10 +20,28 @@ export default class RCTTextManager extends BaseViewManager {
   flex;
 
   @domStyle
+  flexGrow;
+
+  @domStyle
+  flexShrink;
+
+  @domStyle
+  flexBasis;
+
+  @domStyle
   position;
 
   @domStyle
   textAlign;
+
+  @domStyle
+  alignSelf;
+
+  @domStyleWithUnit('px')
+  width;
+
+  @domStyleWithUnit('px')
+  height;
 
   @domStyleWithUnit('px')
   margin;

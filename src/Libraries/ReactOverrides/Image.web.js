@@ -159,7 +159,7 @@ const Image = React.createClass({
       const nativeProps = merge(this.props, {
         style,
         shouldNotifyLoadEvents: !!(onLoadStart || onLoad || onLoadEnd),
-        src: uri,
+        source: uri,
         loadingIndicatorSrc: loadingIndicatorSource ? loadingIndicatorSource.uri : null,
       });
 
