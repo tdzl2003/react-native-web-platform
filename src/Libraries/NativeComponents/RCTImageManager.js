@@ -21,6 +21,7 @@ export default class RCTImageManager extends BaseViewManager {
     img.style.border = 0;
     img.style.width = 0;
     img.style.height = 0;
+    img.style.position = 'relative';
     return img;
   }
 

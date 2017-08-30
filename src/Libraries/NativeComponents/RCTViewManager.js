@@ -18,6 +18,7 @@ export default class RCTViewManager extends BaseViewManager {
     div.style.flexDirection = 'column';
     div.style.padding = 0;
     div.style.flexShrink = 0;
+    div.style.position = 'relative';
     return div;
   }
 

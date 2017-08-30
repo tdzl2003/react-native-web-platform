@@ -12,6 +12,7 @@ export default class RCTButtonManager extends BaseViewManager {
     button.style.height = '24px';
     button.style.textAlign = 'center';
     button.style.backgroundColor = '#eee';
+    button.style.position = 'relative';
     return button;
   }
 

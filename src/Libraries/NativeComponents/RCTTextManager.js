@@ -12,6 +12,7 @@ export default class RCTTextManager extends BaseViewManager {
     div.style.display = 'flex';
     div.style.flexDirection = 'column';
     div.style.padding = 0;
+    div.style.position = 'relative';
     return div;
   }
 
