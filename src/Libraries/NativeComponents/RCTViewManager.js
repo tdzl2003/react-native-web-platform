@@ -7,6 +7,7 @@ import {
   domStyleWithUnit,
   domColorStyle,
   nativeComponent,
+  style,
 } from './decorators';
 import BaseViewManager from './BaseViewManager';
 
@@ -102,4 +103,9 @@ export default class RCTViewManager extends BaseViewManager {
 
   @domColorStyle
   borderColor;
+
+  @style
+  transform(view, value) {
+    view.style.transform = `matrix3d(${value.join(',')})`;
+  }
 }

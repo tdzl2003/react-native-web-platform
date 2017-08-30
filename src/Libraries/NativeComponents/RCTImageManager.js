@@ -10,18 +10,15 @@ import {
   nativeComponent,
 } from './decorators';
 import BaseViewManager from './BaseViewManager';
+import RCTViewManager from "./RCTViewManager";
 
 @nativeComponent('RCTImageView')
-export default class RCTImageManager extends BaseViewManager {
+export default class RCTImageManager extends RCTViewManager {
   createView() {
-    const img = document.createElement('div');
-    img.style.display = 'flex';
-    img.style.flexDirection = 'column';
-    img.style.padding = 0;
+    const img = super.createView();
     img.style.border = 0;
     img.style.width = 0;
     img.style.height = 0;
-    img.style.position = 'relative';
     img.style.backgroundSize = '100% 100%'
     return img;
   }
@@ -55,82 +52,4 @@ export default class RCTImageManager extends BaseViewManager {
         break;
     }
   }
-
-  @domStyle
-  flex;
-
-  @domStyle
-  flexDirection;
-
-  @domStyle
-  alignItems;
-
-  @domStyle
-  alignSelf;
-
-  @domStyle
-  justifyContent;
-
-  @domStyle
-  flexGrow;
-
-  @domStyle
-  flexShrink;
-
-  @domStyle
-  flexBasis;
-
-  @domStyle
-  position;
-
-  @domStyle
-  opacity;
-
-  @domStyleWithUnit('px')
-  width;
-
-  @domStyleWithUnit('px')
-  height;
-
-  @domStyleWithUnit('px')
-  left;
-
-  @domStyleWithUnit('px')
-  right;
-
-  @domStyleWithUnit('px')
-  top;
-
-  @domStyleWithUnit('px')
-  bottom;
-
-  @domStyleWithUnit('px')
-  borderRadius;
-
-  @domStyleWithUnit('px')
-  borderWidth;
-
-  @domStyleWithUnit('px')
-  margin;
-
-  @domStyleWithUnit('px')
-  marginLeft;
-
-  @domStyleWithUnit('px')
-  marginRight;
-
-  @domStyleWithUnit('px')
-  marginTop;
-
-  @domStyleWithUnit('px')
-  marginBottom;
-
-  @domStyleWithUnit('px')
-  padding;
-
-  @domColorStyle
-  backgroundColor;
-
-  @domColorStyle
-  borderColor;
 }

@@ -4,6 +4,11 @@
 
 export const nativeComponentClasses = [];
 
+function getSuperPrototypeProperty(target, name) {
+  const _super = Object.getPrototypeOf(target.constructor).prototype;
+  return _super[name];
+}
+
 export function nativeComponent(name) {
   if (typeof(name) === 'function') {
     name.__nativeComponentName = name.__nativeComponentName || name.name;
@@ -24,6 +29,7 @@ export function command(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__commands'),
         [name]: name,
       },
     })
@@ -38,6 +44,7 @@ export function nativeProp(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__nativeProps'),
         [name]: true,
       },
     })
@@ -57,6 +64,7 @@ export function directEvent(target, name, args) {
       enumerable: false,
       value: {
         [name]: {
+          ...getSuperPrototypeProperty(target, '__customDirectEventTypes'),
           registrationName: name
         },
       },
@@ -75,6 +83,7 @@ export function domDirectEvent(eventName, eventWrapper = ev => ({})) {
         configurable: true,
         enumerable: false,
         value: {
+          ...getSuperPrototypeProperty(target, '__domDirectEvent'),
           [name]: [eventName, eventWrapper],
         },
       })
@@ -94,6 +103,7 @@ export function propSetter(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__props'),
         [name]: setter,
       },
     })
@@ -114,6 +124,7 @@ export function domProp(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__props'),
         [name]: setter,
       },
     })
@@ -134,6 +145,7 @@ export function prop(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__props'),
         [name]: setter,
       },
     })
@@ -150,6 +162,7 @@ export function style(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__styles'),
         [name]: setter,
       },
     })
@@ -168,6 +181,7 @@ export function domStyle(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__styles'),
         [name]: setter,
       },
     })
@@ -187,6 +201,7 @@ export function domStyleWithUnit(unit) {
         configurable: true,
         enumerable: false,
         value: {
+          ...getSuperPrototypeProperty(target, '__styles'),
           [name]: setter,
         },
       })
@@ -210,6 +225,7 @@ export function domColorStyle(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__styles'),
         [name]: setter,
       },
     })
