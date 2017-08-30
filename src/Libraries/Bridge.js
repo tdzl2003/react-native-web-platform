@@ -193,7 +193,6 @@ export default class Bridge {
         const methodName = module.__methods[methodIds[i]];
         const isPromise = module.__promiseMethods && (module.__promiseMethods[methodIds[i]]);
         if (isPromise) {
-          console.info('bridge main:',msg.results);
           const failCb = args[i].pop();
           const successCb = args[i].pop();
           const promise = module[methodName].apply(module, args[i]);
