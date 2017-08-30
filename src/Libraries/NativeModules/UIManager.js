@@ -101,9 +101,9 @@ export default class UIManager {
     if (DEBUG) {
       console.log('setChildren', viewTag, childrenTags);
     }
-    const [ view, manager ] = this.viewRegistry[viewTag];
+    const [ view, manager, payload ] = this.viewRegistry[viewTag];
 
-    manager.setChildren(view, childrenTags.map(tag=>this.viewRegistry[tag][0]));
+    manager.setChildren(view, childrenTags.map(tag=>this.viewRegistry[tag][0]), payload);
   }
 
   @reactMethod
@@ -120,12 +120,13 @@ export default class UIManager {
     if (DEBUG) {
       console.log('manageChildren', ...arguments);
     }
-    const [ view, manager ] = this.viewRegistry[tag];
+    const [ view, manager, payload ] = this.viewRegistry[tag];
     const removes = manager.manageChildren(
       view, moveFrom, moveTo,
       addChildTags && addChildTags.map(v=>this.viewRegistry[v][0]),
       addAtIndices,
       removeFrom,
+      payload
     );
     for (const removeTag of removes) {
       const [ removeView, removeManager ] = this.viewRegistry[removeTag];

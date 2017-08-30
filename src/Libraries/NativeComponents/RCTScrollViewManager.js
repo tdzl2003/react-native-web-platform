@@ -102,9 +102,26 @@ class RCTScrollViewManager extends RCTViewManager {
     };
   })
   onScroll;
-
 }
 
 @nativeComponent('RCTScrollContentView')
 class RCTScrollContentViewManager extends RCTViewManager {
+  setChildren(view, children) {
+    super.setChildren(view, children);
+    this.refreshParentScroller(view);
+  }
+
+  manageChildren(view, moveFrom, moveTo, addChildren, addAtIndecies, removeFrom) {
+    const ret = super.manageChildren(view, moveFrom, moveTo, addChildren, addAtIndecies, removeFrom);
+    this.refreshParentScroller(view);
+    return ret;
+  }
+
+  refreshParentScroller(view) {
+    const id = view.parentNode && view.parentNode.getAttribute('data-react-id');
+    const rec = this.bridge.uiManager.viewRegistry[id];
+    if (rec && rec[2] && rec[2].instance) {
+      rec[2].instance.refresh();
+    }
+  }
 }
