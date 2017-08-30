@@ -20,7 +20,7 @@ export function iscrollDirectEvent(eventName, eventWrapper = ev => ({})) {
     directEvent(target, name, args);
 
     if (target.hasOwnProperty('__iscrollDirectEvent')){
-      target.__domDirectEvent[name] = [eventName, eventWrapper];
+      target.__iscrollDirectEvent[name] = [eventName, eventWrapper];
     } else {
       Object.defineProperty(target, '__iscrollDirectEvent', {
         configurable: true,
@@ -103,6 +103,60 @@ class RCTScrollViewManager extends RCTViewManager {
     };
   })
   onScroll;
+
+  @iscrollDirectEvent('scrollStart', function(view, {instance}) {
+    return {
+      layoutMeasurement: {
+        width: view.offsetWidth,
+        height: view.offsetHeight,
+      },
+      contentSize: {
+        width: view.firstChild.offsetWidth,
+        height: view.firstChild.offsetHeight,
+      },
+      contentOffset: {
+        x: instance.x,
+        y: instance.y,
+      }
+    };
+  })
+  onMomentumScrollBegin;
+
+  @iscrollDirectEvent('scrollEnd', function(view, {instance}) {
+    return {
+      layoutMeasurement: {
+        width: view.offsetWidth,
+        height: view.offsetHeight,
+      },
+      contentSize: {
+        width: view.firstChild.offsetWidth,
+        height: view.firstChild.offsetHeight,
+      },
+      contentOffset: {
+        x: instance.x,
+        y: instance.y,
+      }
+    };
+  })
+  onMomentumScrollEnd;
+
+  @iscrollDirectEvent('scrollEnd', function(view, {instance}) {
+    return {
+      layoutMeasurement: {
+        width: view.offsetWidth,
+        height: view.offsetHeight,
+      },
+      contentSize: {
+        width: view.firstChild.offsetWidth,
+        height: view.firstChild.offsetHeight,
+      },
+      contentOffset: {
+        x: instance.x,
+        y: instance.y,
+      }
+    };
+  })
+  onScrollAnimationEnd;
 }
 
 @nativeComponent('RCTScrollContentView')

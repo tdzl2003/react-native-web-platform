@@ -824,7 +824,10 @@ let nativeOnlyProps,
   RCTScrollContentView;
 
 nativeOnlyProps = {
-  nativeOnly: {}
+  nativeOnly: {
+    onMomentumScrollBegin: true,
+    onMomentumScrollEnd: true,
+  }
 };
 RCTScrollView = requireNativeComponent(
   'RCTScrollView',
