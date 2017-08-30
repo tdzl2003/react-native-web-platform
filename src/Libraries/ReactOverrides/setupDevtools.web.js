@@ -12,18 +12,7 @@
 'use strict';
 
 if (__DEV__) {
-    const {PlatformConstants} = require('NativeModules');
-    const {connectToDevTools} = require('react-devtools-core');
-
-    // Initialize dev tools only if the native module for WebSocket is available
-    connectToDevTools({
-        // Special case: Genymotion is running on a different host.
-        host: PlatformConstants && PlatformConstants.ServerHost ?
-            PlatformConstants.ServerHost.split(':')[0] :
-            'localhost',
-        // Read the optional global variable for backward compatibility.
-        // It was added in https://github.com/facebook/react-native/commit/bf2b435322e89d0aeee8792b1c6e04656c2719a0.
-        port: window.__REACT_DEVTOOLS_PORT__,
-        resolveRNStyle: require('flattenStyle'),
-    });
+  // This will not work.
+  // We need to rewrite tool connector with __REACT_DEVTOOLS_GLOBAL_HOOK__.
+  // It should not connect with websocket.
 }
