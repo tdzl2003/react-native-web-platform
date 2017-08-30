@@ -808,13 +808,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexDirection: 'column',
-    overflow: 'scroll',
   },
   baseHorizontal: {
     flexGrow: 1,
     flexShrink: 1,
     flexDirection: 'row',
-    overflow: 'scroll',
   },
   contentContainerHorizontal: {
     flexDirection: 'row',

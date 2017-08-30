@@ -79,6 +79,7 @@ class RCTScrollViewManager extends RCTViewManager {
     payload.instance = new IScroll(view, {
       mouseWheel: true,
       probeType: 3,
+      scrollbars: true,
     });
     for (const key of Object.keys(payload.lazyEvents)) {
       payload.instance.on(key, payload.lazyEvents[key]);
