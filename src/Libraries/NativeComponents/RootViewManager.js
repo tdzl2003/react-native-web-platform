@@ -26,8 +26,6 @@ export default class RootViewManager extends BaseViewManager {
   }
 
   sendTouchEvent(type, ev) {
-    ev.stopPropagation();
-
     const touches = [];
     const touchIdMap = [];
     const changedIndecies = [];

@@ -3,15 +3,11 @@
  */
 
 import {
-  domStyle,
-  domStyleWithUnit,
-  domColorStyle,
   nativeComponent,
-  domDirectEvent,
   command,
   directEvent,
+  nativeProp
 } from './decorators';
-import BaseViewManager from './BaseViewManager';
 import RCTViewManager from "./RCTViewManager";
 import IScroll from 'iscroll/build/iscroll-probe';
 
@@ -27,6 +23,31 @@ export function iscrollDirectEvent(eventName, eventWrapper = ev => ({})) {
         enumerable: false,
         value: {
           [name]: [eventName, eventWrapper],
+        },
+      })
+    }
+  }
+}
+
+export function iscrollProp(targetName) {
+  return function (target, name, args) {
+    nativeProp(target, name, args);
+
+    const setter = (view, value, payload) => {
+      if (payload.instance) {
+        console.warn('iScroll props cannot change when created.');
+      }
+      payload.lazyProperties[targetName] = value;
+    };
+
+    if (target.hasOwnProperty('__props')){
+      target.__props[name] = setter;
+    } else {
+      Object.defineProperty(target, '__props', {
+        configurable: true,
+        enumerable: false,
+        value: {
+          [name]: setter,
         },
       })
     }
@@ -69,6 +90,7 @@ class RCTScrollViewManager extends RCTViewManager {
 
   createPayload(view) {
     return {
+      lazyProperties: {},
       lazyEvents: {},
       instance: null,
     };
@@ -80,6 +102,10 @@ class RCTScrollViewManager extends RCTViewManager {
       mouseWheel: true,
       probeType: 3,
       scrollbars: true,
+      disablePointer: true,
+      disableMouse: false,
+      disableTouch: false,
+      ...payload.lazyProperties,
     });
     for (const key of Object.keys(payload.lazyEvents)) {
       payload.instance.on(key, payload.lazyEvents[key]);
@@ -157,6 +183,9 @@ class RCTScrollViewManager extends RCTViewManager {
     };
   })
   onScrollAnimationEnd;
+
+  @iscrollProp('snap')
+  pagingEnabled;
 }
 
 @nativeComponent('RCTScrollContentView')
