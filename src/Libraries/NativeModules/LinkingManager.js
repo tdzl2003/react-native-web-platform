@@ -18,7 +18,7 @@ export default class LinkingManager {
   }
 
   @reactPromiseMethod
-  getInitialURL() {
+  async getInitialURL() {
     return null;
   }
 
