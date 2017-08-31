@@ -159,20 +159,9 @@ const Image = React.createClass({
       const nativeProps = merge(this.props, {
         style,
         shouldNotifyLoadEvents: !!(onLoadStart || onLoad || onLoadEnd),
-        source: uri,
+        source: {uri},
         loadingIndicatorSrc: loadingIndicatorSource ? loadingIndicatorSource.uri : null,
       });
-
-      /**
-       * by default set the renderGroup if any transform as been set
-       */
-      if (
-        nativeProps.style &&
-        nativeProps.style['renderGroup'] === undefined &&
-        nativeProps.style.transform
-      ) {
-        nativeProps.style.renderGroup = true;
-      }
 
       if (this.context.isInAParentText) {
         // RCTTextInlineImage isn't implemented yet

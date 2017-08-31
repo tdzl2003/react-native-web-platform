@@ -25,7 +25,7 @@ export default class RCTImageManager extends RCTViewManager {
 
   @propSetter
   source(img, value) {
-    img.style.backgroundImage = `url(${value})`;
+    img.style.backgroundImage = `url(${value.uri})`;
   };
 
   @propSetter

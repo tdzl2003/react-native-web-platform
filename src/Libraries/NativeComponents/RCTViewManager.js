@@ -11,6 +11,38 @@ import {
 } from './decorators';
 import BaseViewManager from './BaseViewManager';
 
+function transformToString(transformation) {
+  var key = Object.keys(transformation)[0];
+  var value = transformation[key];
+
+  switch (key) {
+    case 'matrix':
+      return `matrix(${value.join(',')})`;
+    case 'perspective':
+    case 'translateX':
+    case 'translateY':
+      return `${key}(${value}px)`;
+    case 'rotateX':
+    case 'rotateY':
+    case 'rotate':
+    case 'rotateZ':
+    case 'skewX':
+    case 'skewY':
+      return `${key}(${value})`;
+    case 'scale':
+    case 'scaleX':
+    case 'scaleY':
+      return `${key}(${value})`;
+    case 'translate':
+      if (value.length === 3) {
+        return `translate3d(${value[0]}, ${value[1]}, ${value[2]})`;
+      }
+      return `translate(${value[0]}, ${value[1]})`;
+    default:
+      throw new Error('Invalid transform name: ' + key);
+  }
+}
+
 @nativeComponent('RCTView')
 export default class RCTViewManager extends BaseViewManager {
   createView() {
@@ -106,6 +138,6 @@ export default class RCTViewManager extends BaseViewManager {
 
   @style
   transform(view, value) {
-    view.style.transform = `matrix3d(${value.join(',')})`;
+    view.style.transform = value.map(transformToString).join(' ');
   }
 }

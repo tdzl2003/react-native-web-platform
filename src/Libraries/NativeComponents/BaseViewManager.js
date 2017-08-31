@@ -13,7 +13,7 @@ export default class BaseViewManager {
         const [ eventName, eventWrapper ] = this.__domDirectEvent[name];
         const eventHandler = (ev) => {
           const tag = ev.target.getAttribute('data-react-id') | 0;
-          bridge.sendEvent(tag, name, eventWrapper(ev))
+          bridge.sendEvent(tag, name, eventWrapper(ev));
         };
 
         const setter = function (view, value) {
