@@ -25,6 +25,8 @@ const flattenStyle = require('flattenStyle');
 const merge = require('merge');
 const requireNativeComponent = require('requireNativeComponent');
 const resolveAssetSource = require('resolveAssetSource');
+const ReactCreateClass = require('create-react-class');
+const ReactPropTypes = require('prop-types');
 
 /**
  * A react component for displaying different types of images.
@@ -48,7 +50,7 @@ const resolveAssetSource = require('resolveAssetSource');
  *   },
  *```
  */
-const Image = React.createClass({
+const Image = ReactCreateClass({
   propTypes: {
     ...View.propTypes,
     style: StyleSheetPropType(ImageStylePropTypes),
@@ -98,17 +100,17 @@ const Image = React.createClass({
     /**
      * inset in texture space in 9 tile set up
      */
-    inset: React.PropTypes.arrayOf(PropTypes.number),
+    inset: ReactPropTypes.arrayOf(PropTypes.number),
 
     /**
      * Inset size in world units in 9 tile set up
      */
-    insetSize: React.PropTypes.arrayOf(PropTypes.number),
+    insetSize: ReactPropTypes.arrayOf(PropTypes.number),
 
     /**
      * Specifies the extents of the UV to display
      */
-    crop: React.PropTypes.arrayOf(PropTypes.number),
+    crop: ReactPropTypes.arrayOf(PropTypes.number),
   },
 
   statics: {
@@ -133,7 +135,7 @@ const Image = React.createClass({
   },
 
   contextTypes: {
-    isInAParentText: React.PropTypes.bool,
+    isInAParentText: ReactPropTypes.bool,
   },
 
   render: function() {
