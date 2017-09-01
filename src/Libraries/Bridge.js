@@ -2,6 +2,7 @@
  * Created by tdzl2003 on 03/06/2017.
  */
 import { moduleClasses } from './NativeModules/decorators';
+require('pseudo-worker/polyfill');
 
 const BRIDGE_CODE = `
 var Status = undefined;
@@ -120,7 +121,7 @@ function arrayToIds(arr) {
     if (v) {
       ret.push(i);
     }
-  })
+  });
   return ret;
 }
 

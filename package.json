@@ -27,6 +27,7 @@
     "es6-promise": "^4.1.0",
     "iscroll": "^5.2.0",
     "isomorphic-fetch": "^2.2.1",
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "pseudo-worker": "^1.1.1"
   }
 }

@@ -13,10 +13,16 @@ export default class RootViewManager extends BaseViewManager {
     div.style.flexDirection = 'column';
     div.style.padding = 0;
 
-    div.addEventListener('touchstart', this.onTouchStart);
-    div.addEventListener('touchmove', this.onTouchMove);
-    div.addEventListener('touchcancel', this.onTouchCancel);
-    div.addEventListener('touchend', this.onTouchEnd);
+    if ('ontouchstart' in window) {
+      div.addEventListener('touchstart', this.onTouchStart);
+      div.addEventListener('touchmove', this.onTouchMove);
+      div.addEventListener('touchcancel', this.onTouchCancel);
+      div.addEventListener('touchend', this.onTouchEnd);
+    } else {
+      div.addEventListener('mousedown', this.onMouseDown);
+      div.addEventListener('mouseover', this.onMouseMove);
+      div.addEventListener('mouseup', this.onMouseUp);
+    }
     return div;
   }
 
@@ -30,7 +36,7 @@ export default class RootViewManager extends BaseViewManager {
     const touchIdMap = [];
     const changedIndecies = [];
 
-    const reactId = +ev.target.getAttribute('data-react-id');
+    const reactId = ev.target.getAttribute('data-react-id') | 0;
 
     for (const touch of ev.touches) {
       touchIdMap[touch.identifier] = touches.length;
@@ -78,4 +84,41 @@ export default class RootViewManager extends BaseViewManager {
   onTouchEnd = (ev) => {
     this.sendTouchEvent('topTouchEnd', ev);
   };
+
+  isMouseDown = true;
+
+  onMouseDown = (ev) => {
+    if (ev.button === 0) {
+      this.isMouseDown = true;
+      this.sendMouseEvent('topTouchStart', ev);
+    }
+  }
+
+  onMouseMove = (ev) => {
+    if (this.isMouseDown) {
+      this.sendMouseEvent('topTouchMove', ev);
+    }
+  };
+
+  onMouseUp = (ev) => {
+    if (ev.button === 0) {
+      this.isMouseDown = false;
+      this.sendMouseEvent('topTouchEnd', ev);
+    }
+  };
+
+  sendMouseEvent(type, ev) {
+    const reactId = ev.target.getAttribute('data-react-id') | 0;
+    const touches = [{
+      pageX: ev.pageX,
+      pageY: ev.pageY,
+      locationX: ev.locationX,
+      locationY: ev.locationY,
+      target: reactId,
+      identifier: 0,
+    }];
+    const changedIndecies = [0];
+
+    this.bridge.sendTouchEvent(type, touches, changedIndecies);
+  }
 }

@@ -2682,6 +2682,10 @@ prr@~0.0.0:
   version "0.0.0"
   resolved "http://registry.npm.taobao.org/prr/download/prr-0.0.0.tgz#1a84b85908325501411853d0081ee3fa86e2926a"
 
+pseudo-worker@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/pseudo-worker/-/pseudo-worker-1.1.1.tgz#7e75b3c391da1fdb2beb44e05c0d4847cf1d95a8"
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/pseudomap/download/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
