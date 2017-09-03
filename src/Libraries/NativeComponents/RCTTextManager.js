@@ -72,6 +72,15 @@ export class RCTTextInputManager extends RCTTextManager {
     text: ev.target.value,
   }))
   onChange;
+
+  @propSetter
+  editable(view, value) {
+    if (value) {
+      view.removeAttribute('disabled');
+    } else {
+      view.setAttribute('disabled', 'disabled');
+    }
+  }
 }
 
 @nativeComponent('RCTTextArea')

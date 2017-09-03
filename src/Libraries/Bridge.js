@@ -28,6 +28,8 @@ var originGlobals = {
   setInterval: setInterval,
   clearInterval: clearInterval,
   WebSocket: WebSocket,
+  XMLHttpRequest: XMLHttpRequest,
+  fetch: fetch,
 };
 
 onmessage = function(e) {
