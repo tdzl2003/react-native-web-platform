@@ -1,6 +1,6 @@
 {
   "name": "react-native-web-platform",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "./lib/index.js",
   "repository": "git@github.com:tdzl2003/react-native-web-platform.git",
   "author": "tdzl2003 <tdzl2003@gmail.com>",

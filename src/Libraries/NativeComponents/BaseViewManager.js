@@ -45,11 +45,13 @@ export default class BaseViewManager {
   }
 
   setViewProps(view, props, payload) {
-    for (const key of Object.keys(props)) {
-      if (this.__styles && this.__styles[key]) {
-        this.__styles[key](view, props[key], payload);
-      } else if (this.__props && this.__props[key]) {
-        this.__props[key](view, props[key], payload);
+    if (props) {
+      for (const key of Object.keys(props)) {
+        if (this.__styles && this.__styles[key]) {
+          this.__styles[key](view, props[key], payload);
+        } else if (this.__props && this.__props[key]) {
+          this.__props[key](view, props[key], payload);
+        }
       }
     }
   }

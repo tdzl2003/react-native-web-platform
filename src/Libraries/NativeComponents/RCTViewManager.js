@@ -45,8 +45,8 @@ function transformToString(transformation) {
 
 @nativeComponent('RCTView')
 export default class RCTViewManager extends BaseViewManager {
-  createView(tag = 'div') {
-    const div = document.createElement(tag);
+  createView(tag) {
+    const div = document.createElement(tag || 'div');
     div.style.display = 'flex';
     div.style.flexDirection = 'column';
     div.style.padding = 0;
