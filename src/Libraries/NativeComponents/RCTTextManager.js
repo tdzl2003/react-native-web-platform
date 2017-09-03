@@ -27,15 +27,20 @@ export default class RCTTextManager extends RCTViewManager {
 @nativeComponent('RCTRawText')
 export class RCTRawTextManager extends BaseViewManager {
   createView() {
-    const text = document.createTextNode('');
+    const text = document.createElement('span');
     return text;
   }
 
   @propSetter
   text(view, value) {
-    view.data = value;
-  }
-
-  setViewTag(view, tag) {
+    while (view.lastChild) {
+      view.removeChild(view.lastChild);
+    }
+    const lines = value.split('\n');
+    view.appendChild(document.createTextNode(lines.shift()));
+    for (const line of lines) {
+      view.appendChild(document.createElement('br'));
+      view.appendChild(document.createTextNode(line));
+    }
   }
 }

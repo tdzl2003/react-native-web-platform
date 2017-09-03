@@ -5,6 +5,15 @@
 import { nativeComponent } from './decorators';
 import BaseViewManager from './BaseViewManager';
 
+function getViewTag(view) {
+  while (view) {
+    if (view.hasAttribute('data-react-id')) {
+      return +view.getAttribute('data-react-id');
+    }
+    view = view.parentNode;
+  }
+}
+
 export default class RootViewManager extends BaseViewManager {
   createView() {
     const div = document.createElement('div');
@@ -30,7 +39,11 @@ export default class RootViewManager extends BaseViewManager {
     const touchIdMap = [];
     const changedIndecies = [];
 
-    const reactId = +ev.target.getAttribute('data-react-id');
+    const reactId = getViewTag(ev.target);
+    if (!reactId) {
+      // Should not happen.
+      return;
+    }
 
     for (const touch of ev.touches) {
       touchIdMap[touch.identifier] = touches.length;

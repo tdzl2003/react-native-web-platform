@@ -191,7 +191,7 @@ export function domStyle(target, name, args) {
 export function domStyleWithUnit(unit) {
   return function(target, name, args) {
     const setter = (view, value) => {
-      view.style[name] = `${value}${unit}`;
+      view.style[name] = typeof(value) === 'string' ? value : `${value}${unit}`;
     };
 
     if (target.hasOwnProperty('__styles')){

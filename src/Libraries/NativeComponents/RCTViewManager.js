@@ -45,13 +45,15 @@ function transformToString(transformation) {
 
 @nativeComponent('RCTView')
 export default class RCTViewManager extends BaseViewManager {
-  createView() {
-    const div = document.createElement('div');
+  createView(tag = 'div') {
+    const div = document.createElement(tag);
     div.style.display = 'flex';
     div.style.flexDirection = 'column';
     div.style.padding = 0;
     div.style.flexShrink = 0;
     div.style.position = 'relative';
+    div.style.borderStyle = 'solid';
+    div.style.borderWidth = 0;
     return div;
   }
 
@@ -88,6 +90,9 @@ export default class RCTViewManager extends BaseViewManager {
   @domStyle
   overflow;
 
+  @domStyle
+  borderStyle;
+
   @domStyleWithUnit('px')
   width;
 
@@ -113,6 +118,18 @@ export default class RCTViewManager extends BaseViewManager {
   borderWidth;
 
   @domStyleWithUnit('px')
+  borderTopWidth;
+
+  @domStyleWithUnit('px')
+  borderLeftWidth;
+
+  @domStyleWithUnit('px')
+  borderRightWidth;
+
+  @domStyleWithUnit('px')
+  borderBottomWidth;
+
+  @domStyleWithUnit('px')
   margin;
 
   @domStyleWithUnit('px')
@@ -135,6 +152,18 @@ export default class RCTViewManager extends BaseViewManager {
 
   @domColorStyle
   borderColor;
+
+  @domColorStyle
+  borderTopColor;
+
+  @domColorStyle
+  borderLeftColor;
+
+  @domColorStyle
+  borderRightColor;
+
+  @domColorStyle
+  borderBottomColor;
 
   @style
   transform(view, value) {
