@@ -8,3 +8,4 @@ import './SourceCode';
 import './TouchEventDispatcher';
 import './AsyncLocalStorage';
 import './LinkingManager';
+import './Alert';

@@ -167,6 +167,10 @@ export default class RCTViewManager extends BaseViewManager {
 
   @style
   transform(view, value) {
-    view.style.transform = value.map(transformToString).join(' ');
+    if (value) {
+      view.style.transform = value.map(transformToString).join(' ');
+    } else {
+      view.style.transform = "";
+    }
   }
 }
