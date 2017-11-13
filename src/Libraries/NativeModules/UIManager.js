@@ -161,4 +161,17 @@ export default class UIManager {
   clearJSResponder() {
 
   }
+
+  @reactMethod
+  replaceExistingNonRootView(oldTag, newTag) {
+    const [ view, manager, payload ] = this.viewRegistry[oldTag];
+
+    const parentTag = manager.getParentTag(view);
+
+    const [ parentView, parentManager, parentPayload ] = this.viewRegistry[parentTag];
+
+    const oldIndex = parentManager.getChildIndex(parentView, oldTag, view);
+
+    this.manageChildren(parentTag, null, null, [newTag], [oldIndex], [oldIndex]);
+  }
 }

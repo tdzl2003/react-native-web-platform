@@ -44,6 +44,15 @@ export default class BaseViewManager {
     }
   }
 
+  getParentTag(view) {
+    return +view.parentNode.getAttribute('data-react-id');
+  }
+
+  getChildIndex(view, childTag, childView) {
+    const children = [...view.children];
+    return children.indexOf(childView);
+  }
+
   setViewProps(view, props, payload) {
     if (props) {
       for (const key of Object.keys(props)) {
@@ -109,6 +118,5 @@ export default class BaseViewManager {
   }
 
   createPayload(view) {
-
   }
 }

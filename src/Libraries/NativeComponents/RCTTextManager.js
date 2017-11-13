@@ -14,6 +14,24 @@ export default class RCTTextManager extends RCTViewManager {
   createView(tag) {
     const div = super.createView(tag);
     div.style.display = 'block';
+    div.style.fontSize = '12px';
+    return div;
+  }
+
+  @domStyle
+  textAlign;
+
+  @domStyleWithUnit('px')
+  fontSize;
+
+  @domColorStyle
+  color;
+}
+
+@nativeComponent('RCTVirtualText')
+export class RCTVirtualTextManager extends RCTTextManager {
+  createView(tag) {
+    const div = document.createElement(tag || 'span');
     return div;
   }
 

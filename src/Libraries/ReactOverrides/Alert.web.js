@@ -80,7 +80,8 @@ class Alert {
       });
     } else if (buttons.length === 2) {
       NativeAlert.confirm(title, message).then(result => {
-        buttons[result ? 1 : 0].onPress();
+        const {onPress} = buttons[result ? 1 : 0];
+        onPress && onPress();
       });
     } else {
       throw new Error('3 or more buttons is not supported yet.');
