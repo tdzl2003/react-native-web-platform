@@ -4,7 +4,8 @@
 
 import {
   propSetter, style, domStyle, domStyleWithUnit, domColorStyle, nativeComponent,
-  domDirectEvent
+  domDirectEvent,
+  nativeProp
 } from './decorators';
 import BaseViewManager from './BaseViewManager';
 import RCTViewManager from "./RCTViewManager";
@@ -81,14 +82,17 @@ export class RCTTextInputManager extends RCTTextManager {
   }
 
   @domDirectEvent('focus')
+  @nativeProp
   onFocus;
 
   @domDirectEvent('blur')
+  @nativeProp
   onBlur;
 
   @domDirectEvent('input', ev => ({
     text: ev.target.value,
   }))
+  @nativeProp
   onChange;
 
   @propSetter

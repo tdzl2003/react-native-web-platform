@@ -8,6 +8,7 @@ import {
   domColorStyle,
   nativeComponent,
   style,
+  bubbleEvent,
 } from './decorators';
 import BaseViewManager from './BaseViewManager';
 
@@ -56,6 +57,19 @@ export default class RCTViewManager extends BaseViewManager {
     div.style.borderWidth = 0;
     return div;
   }
+
+
+  @bubbleEvent('onTouchStart', 'onTouchStartCapture')
+  topTouchStart;
+
+  @bubbleEvent('onTouchEnd', 'onTouchEndCapture')
+  topTouchEnd;
+
+  @bubbleEvent('onTouchCancel', 'onTouchCancelCapture')
+  topTouchCancel;
+
+  @bubbleEvent('onTouchMove', 'onTouchMoveCapture')
+  topTouchMove;
 
   @domStyle
   flex;

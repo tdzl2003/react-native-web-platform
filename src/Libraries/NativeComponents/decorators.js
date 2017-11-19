@@ -10,7 +10,7 @@ function getSuperPrototypeProperty(target, name) {
 }
 
 export function nativeComponent(name) {
-  if (typeof(name) === 'function') {
+  if (typeof (name) === 'function') {
     name.__nativeComponentName = name.__nativeComponentName || name.name;
     nativeComponentClasses.push(name);
     return;
@@ -22,7 +22,7 @@ export function nativeComponent(name) {
 }
 
 export function command(target, name, args) {
-  if (target.hasOwnProperty('__commands')){
+  if (target.hasOwnProperty('__commands')) {
     target.__commands[name] = name;
   } else {
     Object.defineProperty(target, '__commands', {
@@ -37,7 +37,7 @@ export function command(target, name, args) {
 }
 
 export function nativeProp(target, name, args) {
-  if (target.hasOwnProperty('__nativeProps')){
+  if (target.hasOwnProperty('__nativeProps')) {
     target.__nativeProps[name] = true;
   } else {
     Object.defineProperty(target, '__nativeProps', {
@@ -52,9 +52,7 @@ export function nativeProp(target, name, args) {
 }
 
 export function directEvent(target, name, args) {
-  nativeProp(target, name, args);
-
-  if (target.hasOwnProperty('__customDirectEventTypes')){
+  if (target.hasOwnProperty('__customDirectEventTypes')) {
     target.__customDirectEventTypes[name] = {
       registrationName: name
     };
@@ -63,8 +61,8 @@ export function directEvent(target, name, args) {
       configurable: true,
       enumerable: false,
       value: {
+        ...getSuperPrototypeProperty(target, '__customDirectEventTypes'),
         [name]: {
-          ...getSuperPrototypeProperty(target, '__customDirectEventTypes'),
           registrationName: name
         },
       },
@@ -72,11 +70,36 @@ export function directEvent(target, name, args) {
   }
 }
 
+export function bubbleEvent(bubbled, captured) {
+  return function (target, name, args) {
+    const phasedRegistrationNames = {
+      bubbled,
+      captured,
+    };
+    if (target.hasOwnProperty('__customBubblingEventTypes')) {
+      target.__customBubblingEventTypes[name] = {
+        phasedRegistrationNames,
+      };
+    } else {
+      Object.defineProperty(target, '__customBubblingEventTypes', {
+        configurable: true,
+        enumerable: false,
+        value: {
+          ...getSuperPrototypeProperty(target, '__customBubblingEventTypes'),
+          [name]: {
+            phasedRegistrationNames,
+          },
+        },
+      })
+    }
+  }
+}
+
 export function domDirectEvent(eventName, eventWrapper = ev => ({})) {
-  return function(target, name, args) {
+  return function (target, name, args) {
     directEvent(target, name, args);
 
-    if (target.hasOwnProperty('__domDirectEvent')){
+    if (target.hasOwnProperty('__domDirectEvent')) {
       target.__domDirectEvent[name] = [eventName, eventWrapper];
     } else {
       Object.defineProperty(target, '__domDirectEvent', {
@@ -96,7 +119,7 @@ export function propSetter(target, name, args) {
 
   const setter = args.value;
 
-  if (target.hasOwnProperty('__props')){
+  if (target.hasOwnProperty('__props')) {
     target.__props[name] = setter;
   } else {
     Object.defineProperty(target, '__props', {
@@ -117,7 +140,7 @@ export function domProp(target, name, args) {
     view.setAttribute(name, value);
   };
 
-  if (target.hasOwnProperty('__props')){
+  if (target.hasOwnProperty('__props')) {
     target.__props[name] = setter;
   } else {
     Object.defineProperty(target, '__props', {
@@ -138,7 +161,7 @@ export function prop(target, name, args) {
     view[name] = value;
   };
 
-  if (target.hasOwnProperty('__props')){
+  if (target.hasOwnProperty('__props')) {
     target.__props[name] = setter;
   } else {
     Object.defineProperty(target, '__props', {
@@ -155,7 +178,7 @@ export function prop(target, name, args) {
 export function style(target, name, args) {
   const setter = args.value;
 
-  if (target.hasOwnProperty('__styles')){
+  if (target.hasOwnProperty('__styles')) {
     target.__styles[name] = setter;
   } else {
     Object.defineProperty(target, '__styles', {
@@ -174,7 +197,7 @@ export function domStyle(target, name, args) {
     view.style[name] = value;
   };
 
-  if (target.hasOwnProperty('__styles')){
+  if (target.hasOwnProperty('__styles')) {
     target.__styles[name] = setter;
   } else {
     Object.defineProperty(target, '__styles', {
@@ -189,12 +212,12 @@ export function domStyle(target, name, args) {
 }
 
 export function domStyleWithUnit(unit) {
-  return function(target, name, args) {
+  return function (target, name, args) {
     const setter = (view, value) => {
-      view.style[name] = typeof(value) === 'string' ? value : `${value}${unit}`;
+      view.style[name] = typeof (value) === 'string' ? value : `${value}${unit}`;
     };
 
-    if (target.hasOwnProperty('__styles')){
+    if (target.hasOwnProperty('__styles')) {
       target.__styles[name] = setter;
     } else {
       Object.defineProperty(target, '__styles', {
@@ -218,7 +241,7 @@ export function domColorStyle(target, name, args) {
     view.style[name] = `rgba(${r}, ${g}, ${b}, ${a})`;
   };
 
-  if (target.hasOwnProperty('__styles')){
+  if (target.hasOwnProperty('__styles')) {
     target.__styles[name] = setter;
   } else {
     Object.defineProperty(target, '__styles', {
