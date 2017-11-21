@@ -76,8 +76,8 @@ export default class BaseViewManager {
         const viewToMove = startChildren[moveFrom[i]];
         viewToMove.parentNode.removeChild(viewToMove);
         startChildren[i] = null;
-        addChildren.append(viewToMove);
-        addAtIndecies.append(moveTo[i]);
+        addChildren.push(viewToMove);
+        addAtIndecies.push(moveTo[i]);
       }
     }
 
