@@ -55,18 +55,13 @@ bridge.start();
 bridge.createRootView(document.body, 'YOUR_APP_NAME_HERE');
 ```
 
-```javascript
-// index.web.js
-// Add any code here just as origin react native.
-```
-
 index.html:
 
 ```html
 <html>
 <head>
   <title>YOUR_APP_NAME_HERE</title>
-  <style>body { margin: 0; }</style>
+  <style>body { margin: 0; } html, body { height: 100%; }</style>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 <body>
@@ -81,11 +76,11 @@ index.release.html:
 <html>
 <head>
   <title>YOUR_APP_NAME_HERE</title>
-  <style>body { margin: 0; }</style>
+  <style>body { margin: 0; } html, body { height: 100%; }</style>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 <body>
-<script src="./launch.bundle.js?platform=web"></script>
+<script src="./launch.bundle.js"></script>
 </body>
 </html>
 ```
