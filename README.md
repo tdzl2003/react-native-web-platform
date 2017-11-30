@@ -45,10 +45,26 @@ const { Bridge } = require('react-native-web-platform/lib/launch');
 
 const bridge = new Bridge(
   __DEV__ ?
-    './index.web.bundle?platform=web' :
-    './index.web.bundle.js'
+    './index.bundle?platform=web' :
+    './index.bundle.js'
 );
 
+bridge.start();
+
+bridge.createRootView(document.body, 'YOUR_APP_NAME_HERE');
+```
+
+> Note: if your react native version <= 0.48.x, use following instead:
+
+```javascript
+// launch.web.js
+const { Bridge } = require('react-native-web-platform/lib/launch');
+
+const bridge = new Bridge(
+  __DEV__ ?
+    './index.web.bundle?platform=web' :
+    './index.bundle.js'
+);
 
 bridge.start();
 
@@ -85,6 +101,8 @@ index.release.html:
 </html>
 ```
 
+If your react native version <= 0.48.x, you should also create a `index.web.js` with the content like `index.ios.js` or `index.android.js`:
+
 ## Debug
 
 ```shell
@@ -94,6 +112,30 @@ npm start
 Then visit [http://localhost:8081/index.html](http://localhost:8081/index.html) to visit your page.
 
 ## Publish
+
+#### version >= 0.49.x:
+
+Linux & Mac:
+
+```shell
+mkdir build
+mkdir build/web
+react-native bundle --entry-file launch.web.js --platform web --dev false --bundle-output build/web/launch.bundle.js --assets-dest build/web
+react-native bundle --entry-file index.js --platform web --dev false --bundle-output build/web/index.bundle.js --assets-dest build/web
+cp index.release.html build/web/index.html
+```
+
+Windows: 
+
+```shell
+md build
+md build\web
+react-native bundle --entry-file launch.web.js --platform web --dev false --bundle-output build/web/launch.bundle.js --assets-dest build/web
+react-native bundle --entry-file index.js --platform web --dev false --bundle-output build/web/index.bundle.js --assets-dest build/web
+copy index.release.html build\web\index.html
+```
+
+#### version <= 0.48.x
 
 Linux & Mac:
 
