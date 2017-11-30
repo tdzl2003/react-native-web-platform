@@ -128,6 +128,7 @@ class RCTScrollViewManager extends RCTViewManager {
       }
     };
   })
+  @nativeProp
   onScroll;
 
   @iscrollDirectEvent('scrollStart', function(view, {instance}) {
@@ -146,6 +147,7 @@ class RCTScrollViewManager extends RCTViewManager {
       }
     };
   })
+  @nativeProp
   onMomentumScrollBegin;
 
   @iscrollDirectEvent('scrollEnd', function(view, {instance}) {
@@ -164,6 +166,7 @@ class RCTScrollViewManager extends RCTViewManager {
       }
     };
   })
+  @nativeProp
   onMomentumScrollEnd;
 
   @iscrollDirectEvent('scrollEnd', function(view, {instance}) {
@@ -182,6 +185,7 @@ class RCTScrollViewManager extends RCTViewManager {
       }
     };
   })
+  @nativeProp
   onScrollAnimationEnd;
 
   @iscrollProp('snap')
