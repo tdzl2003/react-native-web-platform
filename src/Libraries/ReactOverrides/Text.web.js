@@ -30,6 +30,9 @@ const ReactCreateClass = require('create-react-class');
 
 const stylePropType = StyleSheetPropType(TextStylePropTypes);
 
+// TODO: This is dirty, remove after sync version with react native.
+const RNVersion = require('ReactNativeVersion');
+
 const viewConfig = {
   validAttributes: mergeFast(ReactNativeViewAttributes.UIView, {
     isHighlighted: true,
@@ -354,9 +357,17 @@ const Text = ReactCreateClass({
 
 const PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
-const RCTText = createReactNativeComponentClass(viewConfig);
+// TODO: This is dirty, remove after sync version with react native.
+const newCreateAPI = version.major >=1 || version.minor >= 50;
 
-const RCTVirtualText = createReactNativeComponentClass({
+const RCTText = newCreateAPI ? createReactNativeComponentClass(viewConfig.uiViewClassName, () => viewConfig) : createReactNativeComponentClass(viewConfig);
+
+const RCTVirtualText = newCreateAPI ? createReactNativeComponentClass('RCTVirtualText', () => ({
+  validAttributes: mergeFast(ReactNativeViewAttributes.UIView, {
+    isHighlighted: true,
+  }),
+  uiViewClassName: 'RCTVirtualText',
+})) : createReactNativeComponentClass({
   validAttributes: mergeFast(ReactNativeViewAttributes.UIView, {
     isHighlighted: true,
   }),
