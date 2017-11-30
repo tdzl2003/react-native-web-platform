@@ -358,7 +358,7 @@ const Text = ReactCreateClass({
 const PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
 // TODO: This is dirty, remove after sync version with react native.
-const newCreateAPI = version.major >=1 || version.minor >= 50;
+const newCreateAPI = RNVersion.version.major >=1 || RNVersion.version.minor >= 50;
 
 const RCTText = newCreateAPI ? createReactNativeComponentClass(viewConfig.uiViewClassName, () => viewConfig) : createReactNativeComponentClass(viewConfig);
 
