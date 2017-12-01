@@ -41,6 +41,9 @@ Add a launch.web.js and index.html in your project root:
 
 ```javascript
 // launch.web.js
+require('regenerator-runtime/runtime');
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 const { Bridge } = require('react-native-web-platform/lib/launch');
 
 const bridge = new Bridge(
