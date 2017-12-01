@@ -40,6 +40,8 @@ export default class UIManager {
       nativeComponentsInfo[name] = {
         NativeProps: instance.__nativeProps || {},
         Commands: instance.__commands || {},
+        bubblingEventTypes: instance.__customBubblingEventTypes || {},
+        directEventTypes: instance.__customDirectEventTypes || {},
       };
       if (instance.__customBubblingEventTypes) {
         Object.assign(customBubblingEventTypes, instance.__customBubblingEventTypes);
