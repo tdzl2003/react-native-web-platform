@@ -73,6 +73,7 @@ export class RCTTextInputManager extends RCTTextManager {
     const div = super.createView(tag || 'input');
     div.setAttribute('type', 'text');
     div.style.outline = 'none';
+    div.style.backgroundColor = 'transparent';
     return div;
   }
 
