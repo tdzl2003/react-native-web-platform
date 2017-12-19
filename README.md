@@ -82,7 +82,24 @@ index.html:
 <html>
 <head>
   <title>YOUR_APP_NAME_HERE</title>
-  <style>body { margin: 0; } html, body { height: 100%; }</style>
+  <style>
+    body { margin: 0; } html, body { height: 100%; }
+    .pointer-events-none {
+      pointer-events: none;
+    }
+    .pointer-events-box-none * {
+      pointer-events: all;
+    }
+    .pointer-events-box-none {
+      pointer-events: none;
+    }
+    .pointer-events-box-only * {
+      pointer-events: none;
+    }
+    .pointer-events-box-only {
+      pointer-events: all;
+    }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 <body>
@@ -97,7 +114,24 @@ index.release.html:
 <html>
 <head>
   <title>YOUR_APP_NAME_HERE</title>
-  <style>body { margin: 0; } html, body { height: 100%; }</style>
+  <style>
+    body { margin: 0; } html, body { height: 100%; }
+    .pointer-events-none {
+      pointer-events: none;
+    }
+    .pointer-events-box-none * {
+      pointer-events: all;
+    }
+    .pointer-events-box-none {
+      pointer-events: none;
+    }
+    .pointer-events-box-only * {
+      pointer-events: none;
+    }
+    .pointer-events-box-only {
+      pointer-events: all;
+    }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 <body>

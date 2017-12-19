@@ -9,6 +9,7 @@ import {
   nativeComponent,
   style,
   bubbleEvent,
+  propSetter,
 } from './decorators';
 import BaseViewManager from './BaseViewManager';
 
@@ -73,6 +74,15 @@ export default class RCTViewManager extends BaseViewManager {
 
   @domStyle
   flex;
+
+  @domStyle
+  flexGrow;
+
+  @domStyle
+  flexBasis;
+
+  @domStyle
+  flexShrink;
 
   @domStyle
   flexDirection;
@@ -191,6 +201,16 @@ export default class RCTViewManager extends BaseViewManager {
   @domColorStyle
   borderBottomColor;
 
+  @propSetter
+  pointerEvents(view, value) {
+    for (const clazz of view.classList.values()) {
+      if (clazz.startsWith('pointer-events-')) {
+        view.classList.remove(clazz);
+      }
+    }
+    view.classList.add('pointer-events-' + value);
+  };
+
   @style
   transform(view, value) {
     if (value) {
@@ -200,3 +220,4 @@ export default class RCTViewManager extends BaseViewManager {
     }
   }
 }
+
